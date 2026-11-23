@@ -9,6 +9,12 @@
 <meta name="robots" content="index, follow">
 <meta name="google-site-verification" content="KGiqwg7ZrAjombyGZYatg-oZl6V_uX5hmSZ1uHfCok4" />
 <link rel="canonical" href="https://min-ship-it12.github.io/deungdae/">
+<link rel="alternate" hreflang="ko" href="https://min-ship-it12.github.io/deungdae/">
+<link rel="alternate" hreflang="en" href="https://min-ship-it12.github.io/deungdae/en/">
+<link rel="alternate" hreflang="x-default" href="https://min-ship-it12.github.io/deungdae/">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<script>(function(){try{if(/bot|crawl|spider|slurp|yeti|lighthouse|headless|preview/i.test(navigator.userAgent))return;var s=localStorage.getItem('rain-lang');if(s==='en'||(!s&&!/^ko\b/i.test(navigator.language||'ko')))location.replace('en/'+location.search+location.hash);}catch(e){}})();</script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="등대">
 <meta property="og:title" content="등대 · 비 오는 숲속 흰 등대 도트 홈페이지">
@@ -58,13 +64,19 @@ body.zen .panel *{pointer-events:none}
 @media (max-width:640px){.glass{gap:6px;padding:7px;max-width:100%}.glass>*{flex:none}.lbl{display:none}button{font-size:12px;padding:6px 7px}.brand{max-width:64%;padding:4px 8px 5px}.brand p{white-space:nowrap}.brand h1{font-size:17px}.brand p{font-size:10px}.hint{display:none}}
 @media (min-width:900px) and (min-aspect-ratio:1/1){.panel{left:auto;right:max(20px,env(safe-area-inset-right,0px));justify-content:flex-end}.glass{flex-direction:column;align-items:stretch;gap:10px;width:200px;padding:12px}.grp{flex-direction:column;align-items:flex-start;gap:4px}.hint{max-width:176px;line-height:1.45}}
 @media (prefers-reduced-motion:reduce){.panel,.brand,.toast{transition:none}}
+
+.hrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.langs{pointer-events:auto;display:inline-flex;font-family:"Silkscreen",monospace;font-size:10px;letter-spacing:.08em;line-height:1;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.langs a{padding:3px 6px 2px;color:rgba(235,240,238,.75);background:rgba(10,14,16,.55);text-decoration:none;text-shadow:none}
+.langs a:hover,.langs a:focus-visible{color:#fff}
+.langs a[aria-current="true"]{background:rgba(235,240,238,.88);color:#10161a}
 </style>
 </head>
 <body>
 <canvas id="bg" width="27" height="48" aria-hidden="true"></canvas>
 <div class="vig"></div>
 <canvas id="scene" aria-label="키 큰 나무 숲 한가운데 이끼 낀 바위 언덕 위 흰 등대를 아래에서 올려다본 도트 장면. 빗줄기가 하늘에서 쏟아지고, 저녁이면 등대 빛줄기가 숲을 돈다."></canvas>
-<div class="brand"><h1>등대</h1><p>비 오는 날 불을 켜는 숲속 등대</p>
+<div class="brand"><div class="hrow"><h1>등대</h1><span class="langs" aria-label="Language"><a href="./" hreflang="ko" lang="ko" onclick="try{localStorage.setItem('rain-lang','ko')}catch(e){}" aria-current="true">KO</a><a href="en/" hreflang="en" lang="en" onclick="try{localStorage.setItem('rain-lang','en')}catch(e){}">EN</a></span></div><p>비 오는 날 불을 켜는 숲속 등대</p>
   <details><summary>시리즈 ▾</summary><nav aria-label="PIXEL RAIN 시리즈"><a href="https://cheoma-rain.netlify.app/" target="_blank" rel="noopener">1 처마 밑</a><a href="https://mulbineul-rain.netlify.app/" target="_blank" rel="noopener">2 물비늘</a><a href="https://changga-rain.netlify.app/" target="_blank" rel="noopener">3 창가</a><a href="https://yeonip-rain.netlify.app/" target="_blank" rel="noopener">4 연잎</a><a href="https://modakbul-rain.netlify.app/" target="_blank" rel="noopener">5 모닥불</a><a href="https://yuribyeong-rain.netlify.app/" target="_blank" rel="noopener">6 유리병</a><a href="https://deulpan-rain.netlify.app/" target="_blank" rel="noopener">7 들판</a><a href="https://min-ship-it12.github.io/deungdae/" aria-current="page">8 등대</a></nav></details></div>
 <button class="hide" id="zen" aria-pressed="false">조작 숨기기</button>
 <div class="toast" id="toast" role="status"></div>
@@ -610,7 +622,7 @@ function soundStep(dt) { const now = audio.currentTime;
 function tone(f, at, dur, g, type = 'sine', f2) { const o = audio.createOscillator(), gn = audio.createGain(); o.type = type; o.frequency.setValueAtTime(f, at); if (f2) o.frequency.exponentialRampToValueAtTime(f2, at + dur);
   gn.gain.setValueAtTime(0, at); gn.gain.linearRampToValueAtTime(g, at + .01); gn.gain.exponentialRampToValueAtTime(.0001, at + dur); o.connect(gn); gn.connect(A.out); o.start(at); o.stop(at + dur + .05); }
 function tick(g) { tone(1400 + R() * 1600, audio.currentTime + .01, .05, g, 'sine', 700 + R() * 400); }
-function patter(n) { if (audio.state !== 'running') return; for (let k = 0; k < Math.min(18, n); k++) setTimeout(() => tick(.02 + R() * .02), 120 + k * 30 + R() * 80); }
+function patter(n) { if (audio.state !== 'running') return; for (let k = 0; k < Math.min(6, n); k++) setTimeout(() => tone(520 + R() * 260, audio.currentTime + .01, .06, .0035 + R() * .0025, 'sine', 300 + R() * 120), 140 + k * 70 + R() * 90); }   // 11/19 우근: 나무 톡 '찌리리' 거슬림 → 아주 작고 낮은 물방울 몇 개만
 function click(on) { if (audio.state !== 'running') return; const at = audio.currentTime + .01; tone(on ? 2200 : 1500, at, .04, .08, 'square', on ? 1800 : 900); tone(on ? 3200 : 1100, at + .05, .03, .04, 'square'); }
 function horn() { if (audio.state !== 'running') return; const at = audio.currentTime + .05;      // 멀리서 낮게 "부웅"
   for (const [f, g] of [[98, .07], [147, .035]]) { const o = audio.createOscillator(), gn = audio.createGain(), fl = audio.createBiquadFilter(); o.type = 'sawtooth'; o.frequency.value = f; fl.type = 'lowpass'; fl.frequency.value = 420;
